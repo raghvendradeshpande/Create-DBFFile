@@ -1,0 +1,16 @@
+﻿{
+	   "countries": [	      
+		  {	         
+	         "imgPath": "Images/USA/usa1.jpg",
+			 "countryName": "usa"
+	      },
+	      {	         
+	         "imgPath": "Images/USA/usa2.jpg",
+			 "countryName": "usa"
+	      },
+	      {	        
+	         "imgPath": "Images/USA/usa3.jpg",
+			 "countryName": "usa"
+	      }
+	  ]
+	}

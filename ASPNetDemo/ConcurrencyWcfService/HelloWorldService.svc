@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="ConcurrencyWcfService.Service1" CodeBehind="HelloWorldService.svc.cs" %>

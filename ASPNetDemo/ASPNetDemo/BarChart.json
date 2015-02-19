@@ -1,0 +1,26 @@
+﻿{
+  "data": [
+  {"State":"MH","Population":100000,"Year":"1950"},
+  {"State":"MH","Population":200000,"Year":"1960"},
+  {"State":"MH","Population":300000,"Year":"1970"},
+  {"State":"MH","Population":400000,"Year":"1980"},
+  {"State":"MH","Population":500000,"Year":"1990"},
+  {"State":"KA","Population":100000,"Year":"1950"},
+  {"State":"KA","Population":200000,"Year":"1960"},
+  {"State":"KA","Population":800000,"Year":"1970"},
+  {"State":"KA","Population":900000,"Year":"1980"},
+  {"State":"KA","Population":1000000,"Year":"1990"},
+  {"State":"TL","Population":100000,"Year":"1950"},
+  {"State":"TL","Population":200000,"Year":"1960"},
+  {"State":"TL","Population":1300000,"Year":"1970"},
+  {"State":"TL","Population":100500,"Year":"1980"},
+  {"State":"TL","Population":1500000,"Year":"1990"},
+  {"State":"Texas","Population":100000,"Year":"1950"},
+  {"State":"Texas","Population":200000,"Year":"1960"},
+  {"State":"Texas","Population":600000,"Year":"1970"},
+  {"State":"Texas","Population":1010500,"Year":"1980"},
+  {"State":"Texas","Population":1100000,"Year":"1990"}
+]
+}
+
+

@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UserManagementModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="UserManagementModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="UserManagementModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeeNew" EntityType="UserManagementModel.Store.EmployeeNew" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderDetails" EntityType="UserManagementModel.Store.OrderDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TestCompositKey" EntityType="UserManagementModel.Store.TestCompositKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TrigermyTest" EntityType="UserManagementModel.Store.TrigermyTest" store:Type="Tables" store:Schema="dbo" store:Name="TrigermyTest">
+            <DefiningQuery>SELECT 
+      [TrigermyTest].[ID] AS [ID], 
+      [TrigermyTest].[EmployeeName] AS [EmployeeName], 
+      [TrigermyTest].[Salary] AS [Salary], 
+      [TrigermyTest].[CreatedDate] AS [CreatedDate], 
+      [TrigermyTest].[Comments] AS [Comments]
+      FROM [dbo].[TrigermyTest] AS [TrigermyTest]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserDetails" EntityType="UserManagementModel.Store.UserDetails" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_OrderDetails_UserDetails" Association="UserManagementModel.Store.FK_OrderDetails_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="150" />
+          <Property Name="City" Type="nvarchar" MaxLength="150" />
+          <Property Name="ManagerID" Type="int" />
+          <Property Name="Bonus" Type="int" />
+          <Property Name="Salary" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeNew">
+          <Key>
+            <PropertyRef Name="EmpNo" />
+          </Key>
+          <Property Name="EmpNo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="DeptName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Designation" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="TestCompositKey">
+          <Key>
+            <PropertyRef Name="Key1" />
+            <PropertyRef Name="key2" />
+          </Key>
+          <Property Name="Key1" Type="int" Nullable="false" />
+          <Property Name="key2" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'UserManagement.dbo.TrigermyTest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="TrigermyTest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="nchar" MaxLength="255" />
+          <Property Name="Salary" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Comments" Type="text" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_OrderDetails_UserDetails">
+          <End Role="UserDetails" Type="UserManagementModel.Store.UserDetails" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="UserManagementModel.Store.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UserManagementModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="UserManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="UserManagementModel.Employee" />
+          <EntitySet Name="EmployeeNews" EntityType="UserManagementModel.EmployeeNew" />
+          <EntitySet Name="OrderDetails" EntityType="UserManagementModel.OrderDetail" />
+          <EntitySet Name="TestCompositKeys" EntityType="UserManagementModel.TestCompositKey" />
+          <EntitySet Name="TrigermyTests" EntityType="UserManagementModel.TrigermyTest" />
+          <EntitySet Name="UserDetails" EntityType="UserManagementModel.UserDetail" />
+          <AssociationSet Name="FK_OrderDetails_UserDetails" Association="UserManagementModel.FK_OrderDetails_UserDetails">
+            <End Role="UserDetails" EntitySet="UserDetails" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="ManagerID" Type="Int32" />
+          <Property Name="Bonus" Type="Int32" />
+          <Property Name="Salary" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmployeeNew">
+          <Key>
+            <PropertyRef Name="EmpNo" />
+          </Key>
+          <Property Name="EmpNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+          <Property Name="DeptName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Designation" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNo" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="UserDetail" Relationship="UserManagementModel.FK_OrderDetails_UserDetails" FromRole="OrderDetails" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="TestCompositKey">
+          <Key>
+            <PropertyRef Name="Key1" />
+            <PropertyRef Name="key2" />
+          </Key>
+          <Property Name="Key1" Type="Int32" Nullable="false" />
+          <Property Name="key2" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrigermyTest">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="Salary" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Comments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="OrderDetails" Relationship="UserManagementModel.FK_OrderDetails_UserDetails" FromRole="UserDetails" ToRole="OrderDetails" />
+        </EntityType>
+        <Association Name="FK_OrderDetails_UserDetails">
+          <End Role="UserDetails" Type="UserManagementModel.UserDetail" Multiplicity="0..1" />
+          <End Role="OrderDetails" Type="UserManagementModel.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetails">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UserManagementModelStoreContainer" CdmEntityContainer="UserManagementEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="UserManagementModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeNews">
+            <EntityTypeMapping TypeName="UserManagementModel.EmployeeNew">
+              <MappingFragment StoreEntitySet="EmployeeNew">
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="UserManagementModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestCompositKeys">
+            <EntityTypeMapping TypeName="UserManagementModel.TestCompositKey">
+              <MappingFragment StoreEntitySet="TestCompositKey">
+                <ScalarProperty Name="Key1" ColumnName="Key1" />
+                <ScalarProperty Name="key2" ColumnName="key2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrigermyTests">
+            <EntityTypeMapping TypeName="UserManagementModel.TrigermyTest">
+              <MappingFragment StoreEntitySet="TrigermyTest">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="UserManagementModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="LearnEF">
+        <EntityTypeShape EntityType="UserManagementModel.Employee" Width="1.5" PointX="0.75" PointY="3.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.EmployeeNew" Width="1.5" PointX="2.75" PointY="3.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.OrderDetail" Width="1.5" PointX="3" PointY="1" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.TestCompositKey" Width="1.5" PointX="4.75" PointY="3.75" Height="1.4033821614583335" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.TrigermyTest" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.UserDetail" Width="1.5" PointX="0.75" PointY="0.875" Height="1.9802864583333315" IsExpanded="true" />
+        <AssociationConnector Association="UserManagementModel.FK_OrderDetails_UserDetails" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8939925130208333" />
+          <ConnectorPoint PointX="3" PointY="1.8939925130208333" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
